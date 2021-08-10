@@ -1,5 +1,6 @@
 import React from "react";
 import PageHeader from "../../components/PageHeader";
+import BookSectionList from "./BookSectionList";
 
 /*---------------------------------
             Component
@@ -9,7 +10,7 @@ function Home() {
   return (
     <div>
       <PageHeader title="My Reads" />
-      <h1>Home...</h1>
+      <BookSectionList />
     </div>
   );
   /** Render */
