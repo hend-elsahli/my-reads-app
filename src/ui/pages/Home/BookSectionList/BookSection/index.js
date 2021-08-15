@@ -10,11 +10,11 @@ import * as styles from "../styles";
 /*---------------------------------
             Component
 ---------------------------------*/
-function BookSection({ title, list }) {
+function BookSection({ title, list, onBookShelfChange }) {
   return (
     <div css={styles.section}>
       <SectionHeader title={title} />
-      <BookList list={list} />
+      <BookList list={list} onBookShelfChange={onBookShelfChange} />
     </div>
   );
 }

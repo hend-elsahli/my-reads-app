@@ -8,7 +8,14 @@ import * as styles from "./styles";
 /*---------------------------------
             Component
 ---------------------------------*/
-function BookCard({ title, author }) {
+function BookCard({
+  id,
+  title,
+  authors,
+  shelf,
+  thumbnailUrl,
+  onBookShelfChange,
+}) {
   return (
     <div css={styles.bookCard}>
       <div className="top">
@@ -17,14 +24,17 @@ function BookCard({ title, author }) {
           style={{
             width: 128,
             height: 193,
-            backgroundImage:
-              'url("http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api")',
+            backgroundImage: `url(${thumbnailUrl})`,
           }}
         />
-        <BookCardOptions />
+        <BookCardOptions
+          id={id}
+          shelf={shelf}
+          onBookShelfChange={onBookShelfChange}
+        />
       </div>
       <div className="title">{title}</div>
-      <div className="authors">{author}</div>
+      <div className="authors">{authors.toString(", ")}</div>
     </div>
   );
 }

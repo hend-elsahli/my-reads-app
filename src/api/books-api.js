@@ -1,5 +1,8 @@
 import { appFetch, PUT, getDefaultHeaders, POST } from ".";
 
+/*---------------------------------
+              Helpers
+---------------------------------*/
 const getBooklist = (list) => {
   return list.map(
     ({ id, title, authors, shelf, imageLinks: { thumbnail } }) => ({
@@ -11,6 +14,7 @@ const getBooklist = (list) => {
     })
   );
 };
+
 /*---------------------------------
           API-Functions
 ---------------------------------*/
