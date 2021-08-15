@@ -9,6 +9,9 @@ function Search() {
   return (
     <div>
       <SearchField />
+      <div className="search-books-results">
+        <ol className="books-grid" />
+      </div>
     </div>
   );
   /** Render */

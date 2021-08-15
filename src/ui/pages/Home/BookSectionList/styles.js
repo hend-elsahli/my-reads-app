@@ -7,6 +7,10 @@ export const section = css`
 /** BookSection */
 
 /** BookList */
+export const bookListContainer = css`
+  text-align: center;
+`;
+
 export const bookList = css`
   text-align: center;
   ol {

@@ -3,8 +3,7 @@
 
 import { jsx } from "@emotion/react";
 
-import { SectionHeader } from "../../../../components";
-import BookList from "./BookList";
+import { SectionHeader, BookList } from "../../../../components";
 import * as styles from "../styles";
 
 /*---------------------------------
@@ -14,7 +13,9 @@ function BookSection({ title, list, onBookShelfChange }) {
   return (
     <div css={styles.section}>
       <SectionHeader title={title} />
-      <BookList list={list} onBookShelfChange={onBookShelfChange} />
+      <div css={styles.bookListContainer}>
+        <BookList list={list} onBookShelfChange={onBookShelfChange} />
+      </div>
     </div>
   );
 }
