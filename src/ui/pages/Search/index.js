@@ -1,4 +1,5 @@
 import React from "react";
+import SearchField from "./SearchField";
 
 /*---------------------------------
             Component
@@ -7,7 +8,7 @@ function Search() {
   /** Render */
   return (
     <div>
-      <h1>Search...</h1>
+      <SearchField />
     </div>
   );
   /** Render */

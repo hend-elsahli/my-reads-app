@@ -6,6 +6,7 @@ import Home from "./ui/pages/Home";
 import Search from "./ui/pages/Search";
 
 /** TODO: Make app responsive */
+/** TODO: optimize components using memo, useCallback */
 function App() {
   return (
     <Router>
