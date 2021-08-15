@@ -34,7 +34,7 @@ function BookCard({
         />
       </div>
       <div className="title">{title}</div>
-      <div className="authors">{authors.toString(", ")}</div>
+      <div className="authors">{authors ? authors.toString(", ") : ""}</div>
     </div>
   );
 }

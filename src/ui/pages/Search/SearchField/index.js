@@ -8,7 +8,7 @@ import * as styles from "../styles";
 /*---------------------------------
             Component
 ---------------------------------*/
-function SearchField() {
+function SearchField({ value, onChange }) {
   return (
     <div>
       <div css={styles.searchField}>
@@ -16,7 +16,12 @@ function SearchField() {
           Close
         </Link>
         <div className="inputContainer">
-          <input type="text" placeholder="Search by title or author" />
+          <input
+            type="text"
+            placeholder="Search by title or author"
+            value={value}
+            onChange={onChange}
+          />
         </div>
       </div>
     </div>

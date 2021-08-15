@@ -39,3 +39,8 @@ export const searchField = css`
     }
   }
 `;
+
+/** SearchList */
+export const listContainer = css`
+  padding: 80px 10px 20px;
+`;

@@ -4,6 +4,7 @@ import { appFetch, PUT, getDefaultHeaders, POST } from ".";
               Helpers
 ---------------------------------*/
 const getBooklist = (list) => {
+  if (!list || !Array.isArray(list)) return [];
   return list.map(
     ({ id, title, authors, shelf, imageLinks: { thumbnail } }) => ({
       id,
