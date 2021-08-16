@@ -2,26 +2,30 @@
 /** @jsx jsx */
 
 import { jsx } from "@emotion/react";
+import { useState } from "react";
 import { BOOK_SECTIONS } from "../../../../constants";
 import * as styles from "../styles";
 
 /*---------------------------------
             Component
 ---------------------------------*/
-function BookCardOptions({ id, shelf, onBookShelfChange }) {
+function BookCardOptions({ shelf, onShelfChange }) {
+  const [current, setCurrent] = useState(shelf);
+
   const onChange = (e) => {
-    onBookShelfChange({ id, shelf: e.target.value });
+    setCurrent(e.target.value);
+    onShelfChange(e);
   };
 
   return (
     <div css={styles.bookCardOptions}>
-      <select value={shelf} onChange={onChange}>
+      <select value={current} onChange={onChange}>
         <option value="move" disabled>
           Move to...
         </option>
 
         {Object.keys(BOOK_SECTIONS).map((key) => (
-          <option key={key} value={key} onClick={onBookShelfChange}>
+          <option key={key} value={key}>
             {BOOK_SECTIONS[key].title}
           </option>
         ))}

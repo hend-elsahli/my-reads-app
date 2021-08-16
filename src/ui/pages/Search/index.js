@@ -11,7 +11,7 @@ import { searchBooks } from "../../../api/books-api";
 /*---------------------------------
             Component
 ---------------------------------*/
-function Search() {
+function Search({ booksOnShelf, onBookShelfChange }) {
   /** State */
   const [{ query, books }, setState] = useState({
     query: "",
@@ -20,13 +20,26 @@ function Search() {
   /** State */
 
   /** Helpers */
+  const fillShelfs = (list) => {
+    const data = list.map(({ id, shelf, ...rest }) => {
+      const index = booksOnShelf.findIndex((item) => item.id === id);
+      return {
+        id,
+        shelf: index !== -1 ? booksOnShelf[index].shelf : "none",
+        ...rest,
+      };
+    });
+
+    return data;
+  };
+
   const onSearchTextChange = async (e) => {
     const query = e.target.value.trim();
 
     if (query) {
       const { ok, data } = await searchBooks({ query });
       if (ok) {
-        setState({ query, books: data });
+        setState({ query, books: fillShelfs(data) });
       }
     } else {
       setState({ query, books: [] });
@@ -39,7 +52,7 @@ function Search() {
     <div>
       <SearchField value={query} onChange={onSearchTextChange} />
       <div css={styles.listContainer}>
-        <BookList list={books} />
+        <BookList list={books} onBookShelfChange={onBookShelfChange} />
       </div>
     </div>
   );

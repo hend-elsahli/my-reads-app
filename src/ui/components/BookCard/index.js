@@ -16,6 +16,16 @@ function BookCard({
   thumbnailUrl,
   onBookShelfChange,
 }) {
+  /** Helpers */
+  const onShelfChange = (e) => {
+    console.log("onShelfChange", e);
+    onBookShelfChange({
+      book: { id, title, authors, thumbnailUrl, shelf: e.target.value },
+    });
+  };
+  /** Helpers */
+
+  /** Render */
   return (
     <div css={styles.bookCard}>
       <div className="top">
@@ -27,16 +37,13 @@ function BookCard({
             backgroundImage: `url(${thumbnailUrl})`,
           }}
         />
-        <BookCardOptions
-          id={id}
-          shelf={shelf}
-          onBookShelfChange={onBookShelfChange}
-        />
+        <BookCardOptions shelf={shelf} onShelfChange={onShelfChange} />
       </div>
       <div className="title">{title}</div>
       <div className="authors">{authors ? authors.toString(", ") : ""}</div>
     </div>
   );
+  /** Render */
 }
 
 export default BookCard;

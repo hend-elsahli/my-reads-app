@@ -7,12 +7,12 @@ import BookSectionList from "./BookSectionList";
 /*---------------------------------
             Component
 ---------------------------------*/
-function Home() {
+function Home({ books, onBookShelfChange }) {
   /** Render */
   return (
     <div>
       <PageHeader title="My Reads" />
-      <BookSectionList />
+      <BookSectionList books={books} onBookShelfChange={onBookShelfChange} />
       <FloatingLink title="Add a Book" to="/search" />
     </div>
   );
