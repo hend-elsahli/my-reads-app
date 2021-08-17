@@ -3,6 +3,11 @@ import { appFetch, PUT, getDefaultHeaders, POST } from ".";
 /*---------------------------------
               Helpers
 ---------------------------------*/
+/**
+ * @description Extract necessary book details
+ * @param {array} list - List of all books with all of its details
+ * @returns {array} - List of books with specific details
+ */
 const getBooklist = (list) => {
   if (!list || !Array.isArray(list)) return [];
   return list.map(
@@ -19,6 +24,11 @@ const getBooklist = (list) => {
 /*---------------------------------
           API-Functions
 ---------------------------------*/
+/**
+ * @description Get book details given bookId
+ * @param {object} { id } - id of the book
+ * @returns {object} { ok {boolean}, data {object} } - Object with result-status `ok`, and book object
+ */
 export const getBook = async ({ id }) => {
   const { ok, data } = await appFetch({
     url: `books/${id}`,
@@ -48,6 +58,10 @@ export const getBook = async ({ id }) => {
   }
 };
 
+/**
+ * @description Get all books on shelves
+ * @returns {object} { ok {boolean}, data {array} }
+ */
 export const getAllBooks = async () => {
   const { ok, data } = await appFetch({
     url: "books",
@@ -56,6 +70,11 @@ export const getAllBooks = async () => {
   return ok ? { ok: true, data: getBooklist(data.books) } : { ok, data };
 };
 
+/**
+ * @description Update book `shelf` with `id`
+ * @param {object} { id {string}, shelf {string} }
+ * @returns {boolean} ok - The status of the update
+ */
 export const updateBook = async ({ id, shelf }) => {
   const { ok } = await appFetch({
     url: `books/${id}`,
@@ -64,9 +83,14 @@ export const updateBook = async ({ id, shelf }) => {
     body: { shelf },
   });
 
-  return { ok };
+  return ok;
 };
 
+/**
+ * @description Search book using `title` or `author`
+ * @param {object} {query {string}, signal {object}} - Search query (title, or author), abort signal to cancel request
+ * @returns
+ */
 export const searchBooks = async ({ query, signal }) => {
   const { ok, data } = await appFetch({
     url: `search`,

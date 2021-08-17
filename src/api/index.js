@@ -16,6 +16,10 @@ export const ERR_UNKNOWN = "unknown";
 /*---------------------------------
             Helpers
 ---------------------------------*/
+/**
+ * @description get default headers object
+ * @returns {object} Header object
+ */
 export const getDefaultHeaders = () => {
   let token = localStorage.token;
   if (!token)
@@ -42,7 +46,13 @@ const handleApiError = (error) => {
 
 /**
  *
- * @returns Object { ok: true|false, data: []:{}:string, error: error-code-string }
+ * @description Custom fetch method for resources asynchronously across the network
+ * @param {string} url - relative path of the api endpoint (with no leading /)
+ * @param {string} method - HTTP method (GET, POST, PUT, PATCH...)
+ * @param {body} object - HTTP request body object
+ * @param {object} object - HTTP request headers object
+ * @param {signal} object - AbortController signal to terminate the request if needed
+ * @returns {Object} { ok: true|false, data: []:{}:string, error: error-code-string }
  * @Example { ok: false, error: ERR_UNKOWN }
  * @example { ok: true, data: [{...}, {...}] }
  */
