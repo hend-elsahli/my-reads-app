@@ -18,7 +18,6 @@ function BookCard({
 }) {
   /** Helpers */
   const onShelfChange = (e) => {
-    console.log("onShelfChange", e);
     onBookShelfChange({
       book: { id, title, authors, thumbnailUrl, shelf: e.target.value },
     });

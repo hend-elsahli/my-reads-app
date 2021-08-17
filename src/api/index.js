@@ -30,7 +30,6 @@ export const getDefaultHeaders = () => {
 const handleResponseError = (res) => {
   const { ok } = res;
   if (!ok) {
-    console.log("handleResponseError", res);
     throw new Error();
   }
 
@@ -38,7 +37,6 @@ const handleResponseError = (res) => {
 };
 
 const handleApiError = (error) => {
-  console.log("handleApiError", error);
   return { ok: false, error: ERR_UNKNOWN };
 };
 

@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import SearchField from "./SearchField";
 import { BookList } from "../../components";
@@ -13,10 +13,9 @@ import { searchBooks } from "../../../api/books-api";
 ---------------------------------*/
 function Search({ booksOnShelf, onBookShelfChange }) {
   /** State */
-  const [{ query, books, loading }, setState] = useState({
+  const [{ query, books }, setState] = useState({
     query: "",
     books: [],
-    loading: false,
   });
   /** State */
 
@@ -48,34 +47,24 @@ function Search({ booksOnShelf, onBookShelfChange }) {
     };
 
     const fetchBooks = async () => {
-      /** 1. Loading */
-      // setState((prev) => ({ ...prev, loading: true }));
-
       /** 2. Exec api */
       const { ok, data } = await searchBooks({ query, signal: aborter.signal });
-      console.log("searchBooks request", ok, data);
       /** 3. Fullfilled || Rejected */
       setState((prev) => ({
         ...prev,
-        // loading: false,
-        // books: fillShelfs(data),
         books: ok ? fillShelfs(data) : prev.books,
       }));
     };
 
     if (query) {
-      console.log("should search");
       fetchBooks();
     }
 
     /** Cleanup */
     return () => {
-      // if (loading && aborter) {
-      console.log("should cleanup");
       aborter.abort();
-      //   setState((prev) => ({ ...prev, loading: false }));
-      // }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
   /** Effects */
 
