@@ -67,12 +67,13 @@ export const updateBook = async ({ id, shelf }) => {
   return { ok };
 };
 
-export const searchBooks = async ({ query }) => {
+export const searchBooks = async ({ query, signal }) => {
   const { ok, data } = await appFetch({
     url: `search`,
     method: POST,
     headers: { ...getDefaultHeaders(), "Content-Type": "application/json" },
     body: { query },
+    signal,
   });
 
   return ok ? { ok: true, data: getBooklist(data.books) } : { ok, data };

@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import SearchField from "./SearchField";
 import { BookList } from "../../components";
@@ -13,39 +13,71 @@ import { searchBooks } from "../../../api/books-api";
 ---------------------------------*/
 function Search({ booksOnShelf, onBookShelfChange }) {
   /** State */
-  const [{ query, books }, setState] = useState({
+  const [{ query, books, loading }, setState] = useState({
     query: "",
     books: [],
+    loading: false,
   });
   /** State */
 
   /** Helpers */
-  const fillShelfs = (list) => {
-    const data = list.map(({ id, shelf, ...rest }) => {
-      const index = booksOnShelf.findIndex((item) => item.id === id);
-      return {
-        id,
-        shelf: index !== -1 ? booksOnShelf[index].shelf : "none",
-        ...rest,
-      };
-    });
-
-    return data;
-  };
-
   const onSearchTextChange = async (e) => {
     const query = e.target.value.trim();
 
-    if (query) {
-      const { ok, data } = await searchBooks({ query });
-      if (ok) {
-        setState({ query, books: fillShelfs(data) });
-      }
-    } else {
-      setState({ query, books: [] });
-    }
+    !query
+      ? setState({ query, books: [] })
+      : setState((prev) => ({ ...prev, query }));
   };
   /** Helpers */
+
+  /** Effects */
+  useEffect(() => {
+    const aborter = new AbortController();
+
+    const fillShelfs = (list) => {
+      const data = list.map(({ id, shelf, ...rest }) => {
+        const index = booksOnShelf.findIndex((item) => item.id === id);
+        return {
+          id,
+          shelf: index !== -1 ? booksOnShelf[index].shelf : "none",
+          ...rest,
+        };
+      });
+
+      return data;
+    };
+
+    const fetchBooks = async () => {
+      /** 1. Loading */
+      // setState((prev) => ({ ...prev, loading: true }));
+
+      /** 2. Exec api */
+      const { ok, data } = await searchBooks({ query, signal: aborter.signal });
+      console.log("searchBooks request", ok, data);
+      /** 3. Fullfilled || Rejected */
+      setState((prev) => ({
+        ...prev,
+        // loading: false,
+        // books: fillShelfs(data),
+        books: ok ? fillShelfs(data) : prev.books,
+      }));
+    };
+
+    if (query) {
+      console.log("should search");
+      fetchBooks();
+    }
+
+    /** Cleanup */
+    return () => {
+      // if (loading && aborter) {
+      console.log("should cleanup");
+      aborter.abort();
+      //   setState((prev) => ({ ...prev, loading: false }));
+      // }
+    };
+  }, [query]);
+  /** Effects */
 
   /** Render */
   return (

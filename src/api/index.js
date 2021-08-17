@@ -38,6 +38,7 @@ const handleResponseError = (res) => {
 };
 
 const handleApiError = (error) => {
+  console.log("handleApiError", error);
   return { ok: false, error: ERR_UNKNOWN };
 };
 
@@ -52,12 +53,14 @@ export const appFetch = async ({
   method,
   body,
   headers = getDefaultHeaders(),
+  signal,
 }) => {
   try {
     const res = await fetch(`${BASE_URL}/${url}`, {
       method,
       body: body ? JSON.stringify(body) : body,
       headers,
+      signal,
     });
 
     const data = await handleResponseError(res).json();
