@@ -10,15 +10,13 @@ import { appFetch, PUT, getDefaultHeaders, POST } from ".";
  */
 const getBooklist = (list) => {
   if (!list || !Array.isArray(list)) return [];
-  return list.map(
-    ({ id, title, authors, shelf, imageLinks: { thumbnail } }) => ({
-      id,
-      title,
-      authors,
-      shelf,
-      thumbnailUrl: thumbnail,
-    })
-  );
+  return list.map(({ id, title, authors, shelf, imageLinks }) => ({
+    id,
+    title,
+    authors,
+    shelf,
+    thumbnailUrl: imageLinks?.thumbnail,
+  }));
 };
 
 /*---------------------------------
