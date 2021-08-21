@@ -28,14 +28,7 @@ function BookCard({
   return (
     <div css={styles.bookCard}>
       <div className="top">
-        <div
-          className="cover"
-          style={{
-            width: 128,
-            height: 193,
-            backgroundImage: `url(${thumbnailUrl})`,
-          }}
-        />
+        <div css={styles.bookCardCover(thumbnailUrl)} />
         <BookCardOptions shelf={shelf} onShelfChange={onShelfChange} />
       </div>
       <div className="title">{title}</div>

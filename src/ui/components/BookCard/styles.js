@@ -9,16 +9,19 @@ export const bookCard = css`
     display: flex;
     align-items: flex-end;
   }
-  .cover {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    background: #eee;
-  }
   .title {
     margin-top: 10px;
   }
   .authors {
     color: #999;
   }
+`;
+
+export const bookCardCover = (thumbnailUrl) => css`
+  width: 128px;
+  height: 193px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  background: ${thumbnailUrl ? `url(${thumbnailUrl})` : "#eee"};
 `;
 /** BookCard */
 
