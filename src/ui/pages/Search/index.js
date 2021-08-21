@@ -21,7 +21,7 @@ function Search({ booksOnShelf, onBookShelfChange }) {
 
   /** Helpers */
   const onSearchTextChange = async (e) => {
-    const query = e.target.value.trim();
+    const query = e.target.value;
 
     !query
       ? setState({ query, books: [] })

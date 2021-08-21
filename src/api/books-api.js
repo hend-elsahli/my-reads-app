@@ -96,7 +96,7 @@ export const searchBooks = async ({ query, signal }) => {
     url: `search`,
     method: POST,
     headers: { ...getDefaultHeaders(), "Content-Type": "application/json" },
-    body: { query },
+    body: { query: query.trim() },
     signal,
   });
 
